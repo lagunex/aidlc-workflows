@@ -326,6 +326,8 @@ through to production.
 
 If the state file is corrupted, you can reconstruct it from the audit trail by reviewing `STAGE_STARTED` and `STAGE_COMPLETED` events. See [Troubleshooting](15-troubleshooting.md) for repair instructions.
 
+To browse both in one place, run the read-only [aidlc-viz](../../scripts/aidlc-viz/README.md) viewer from a clone of this repository. It shows each intent's progress, its stages by phase, its decisions, and its artifacts.
+
 ---
 
 ## Next Steps

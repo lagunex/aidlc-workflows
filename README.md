@@ -151,7 +151,7 @@ for the architecture and methodology.
 - `core/tools/` - 94 aidlc-*.ts engine and authoring tools
 - `harness/<name>/` - thin, harness-specific manifests and integrations
 - `plugins/<name>/` - optional AIDLC plugins
-- `scripts/` - packaging, binary, installer, and release tooling
+- `scripts/` - packaging, binary, installer, and release tooling, plus the read-only [`aidlc-viz`](scripts/aidlc-viz/README.md) workspace viewer
 - `tests/` - smoke, unit, integration, and end-to-end tests
 - `docs/` - user, harness-engineering, and developer documentation
 - `dist/` and `dist-release/` - generated, ignored local outputs

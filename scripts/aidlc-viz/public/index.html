@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI-DLC Visualization (read-only)</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <h1>AI-DLC Visualization</h1>
+      <nav class="crumbs" id="crumbs" data-testid="breadcrumbs"></nav>
+      <span class="readonly-badge" title="This tool never writes to the workspace">read-only</span>
+    </header>
+
+    <main id="view" class="view" data-testid="view">
+      <p class="loading">Loading…</p>
+    </main>
+
+    <footer class="footer">
+      <small>Press <kbd>F5</kbd> to refresh (re-reads the workspace from disk). No auto-refresh.</small>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
