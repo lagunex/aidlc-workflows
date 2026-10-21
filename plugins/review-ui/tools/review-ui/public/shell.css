@@ -1,0 +1,653 @@
+/* The app rail, the header over the main column, the Inbox and the search
+   palette. */
+
+/* ---- Rail ------------------------------------------------------------------- */
+
+.rail {
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 0;
+  border-right: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.rail button {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  color: var(--muted-text);
+}
+
+.rail button:hover {
+  color: var(--ink);
+  background: var(--line);
+}
+
+.rail button.on {
+  color: var(--accent-text);
+  background: var(--soft);
+}
+
+.rail .logo {
+  width: 30px;
+  height: 30px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  color: #fff;
+  background: var(--accent);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.rail .logo:hover {
+  color: #fff;
+  background: var(--accent);
+  filter: brightness(0.96);
+}
+
+.rail-badge {
+  position: absolute;
+  top: 2px;
+  right: 1px;
+  min-width: 16px;
+  height: 16px;
+  display: grid;
+  place-items: center;
+  padding: 0 4px;
+  border: 2px solid var(--panel);
+  border-radius: 99px;
+  color: #fff;
+  background: var(--accent-text);
+  font-size: 9px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+/* ---- Header ------------------------------------------------------------------ */
+
+.header {
+  grid-row: 1;
+  min-width: 0;
+  min-height: var(--header-h);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  grid-template-areas: "context state tools";
+  align-items: center;
+  column-gap: 12px;
+  padding: 0 14px 0 18px;
+  border-bottom: 1px solid var(--line2);
+}
+
+.header-context {
+  grid-area: context;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.25;
+}
+
+.header-path {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--muted-text);
+  font-size: 10.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.header-path i {
+  padding: 0 3px;
+  color: var(--faint);
+  font-style: normal;
+}
+
+.header-title {
+  max-width: 100%;
+  overflow: hidden;
+  font-size: 15px;
+  font-weight: 650;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.header-picker {
+  position: relative;
+  max-width: 100%;
+}
+
+.header-picker summary {
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 650;
+  list-style: none;
+  cursor: pointer;
+}
+
+.header-picker summary::-webkit-details-marker {
+  display: none;
+}
+
+.header-picker-title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.header-picker-caret {
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+}
+
+.header-picker-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 20;
+  width: 260px;
+  max-height: min(420px, 70vh);
+  overflow: auto;
+  padding: 5px;
+  border: 1px solid var(--line2);
+  border-radius: 9px;
+  background: #fff;
+  box-shadow: var(--shadow-menu);
+}
+
+.header-picker-menu button {
+  width: 100%;
+  display: block;
+  overflow: hidden;
+  padding: 7px 9px;
+  border-radius: 6px;
+  font-size: 12.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.header-picker-menu button:hover,
+.header-picker-menu button.on {
+  background: var(--panel);
+}
+
+.header-picker-menu button.on {
+  color: var(--accent-text);
+  font-weight: 650;
+}
+
+/* The one sentence about the view: accent only when the person is needed. */
+.header-state {
+  grid-area: state;
+  min-width: 0;
+  max-width: 265px;
+  line-height: 1.25;
+  text-align: right;
+}
+
+.header-state b {
+  display: block;
+  overflow: hidden;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.header-state.needs b {
+  color: var(--accent-text);
+}
+
+.header-state.ok b {
+  color: var(--green-text);
+}
+
+.header-state.quiet b {
+  color: var(--muted-text);
+}
+
+.header-tools {
+  grid-area: tools;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding-left: 12px;
+  border-left: 1px solid var(--line);
+}
+
+.connection {
+  width: 22px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+}
+
+.connection i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+}
+
+.connection.disconnected i {
+  background: var(--rose);
+}
+
+.header-icon {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 7px;
+  color: var(--muted-text);
+}
+
+.header-icon:hover {
+  color: var(--ink);
+  background: var(--panel);
+}
+
+.header-icon.on {
+  color: var(--accent-text);
+  background: var(--soft);
+}
+
+.header-tools .link,
+.header-tools .btn {
+  margin-left: 2px;
+}
+
+/* ---- Inbox -------------------------------------------------------------------- */
+
+.inbox {
+  background: linear-gradient(180deg, #fbfcfe 0, #fff 260px);
+}
+
+.inbox-page {
+  width: min(760px, 100%);
+  margin: 0 auto;
+  padding: 56px 32px 96px;
+}
+
+.inbox-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 0 2px 14px;
+  border-bottom: 1px solid var(--line2);
+}
+
+.inbox-heading h1 {
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: -0.01em;
+}
+
+.inbox-tagline {
+  color: var(--muted-text);
+  font-size: 12.5px;
+}
+
+.inbox-heading > b {
+  margin-left: auto;
+  padding: 3px 10px;
+  border-radius: 99px;
+  color: var(--muted-text);
+  background: var(--panel);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.inbox-heading > b.needs {
+  color: var(--accent-text);
+  background: var(--soft);
+}
+
+.inbox-spaces {
+  margin: 10px 2px 0;
+  color: var(--muted-text);
+  font-size: 12px;
+}
+
+.inbox-group {
+  padding-top: 22px;
+}
+
+.inbox-group h2 {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 6px;
+  padding: 0 2px;
+  color: var(--muted-text);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.inbox-group.needs h2 {
+  color: var(--accent-text);
+}
+
+.inbox-count {
+  padding: 0 6px;
+  border-radius: 99px;
+  color: var(--muted-text);
+  background: var(--panel);
+  font-size: 10px;
+}
+
+.inbox-group.archived .group-toggle {
+  margin: 0 0 6px;
+}
+
+.inbox-row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 10px minmax(0, 1fr) auto 16px;
+  align-items: center;
+  gap: 14px;
+  padding: 12px;
+  border-radius: 10px;
+  transition: background 120ms ease;
+}
+
+.inbox-row + .inbox-row {
+  margin-top: 2px;
+}
+
+.inbox-row:hover,
+.inbox-row.on {
+  background: var(--panel);
+}
+
+.inbox-main {
+  min-width: 0;
+}
+
+.inbox-row b,
+.inbox-row small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.inbox-row b {
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.inbox-row small {
+  margin-top: 2px;
+  color: var(--muted-text);
+  font-size: 11.5px;
+}
+
+.inbox-row small em {
+  font-style: normal;
+}
+
+.inbox-row.done b,
+.inbox-row.archived b {
+  color: var(--muted-text);
+  font-weight: 500;
+}
+
+.inbox-status {
+  color: var(--muted-text);
+  font-size: 11.5px;
+  white-space: nowrap;
+}
+
+.inbox-status.needs {
+  padding: 2px 9px;
+  border-radius: 99px;
+  color: var(--accent-text);
+  background: var(--soft);
+  font-weight: 650;
+}
+
+.inbox-go {
+  display: grid;
+  place-items: center;
+  color: var(--line2);
+  transition:
+    color 120ms ease,
+    transform 120ms ease;
+}
+
+.inbox-row:hover .inbox-go {
+  color: var(--ink);
+  transform: translateX(2px);
+}
+
+.inbox-empty {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 44px 20px;
+  color: var(--muted-text);
+  text-align: center;
+}
+
+.inbox-empty .fi {
+  color: var(--line2);
+}
+
+.inbox-empty b {
+  color: var(--ink);
+  font-size: 13.5px;
+}
+
+.inbox-empty-line {
+  max-width: 380px;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+/* Status dots, here and in the intent popover. */
+.intent-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--faint);
+}
+
+.intent-dot.needs-you {
+  background: var(--accent);
+  box-shadow: 0 0 0 4px var(--soft);
+}
+
+.intent-dot.in-progress {
+  background: var(--green);
+}
+
+.intent-dot.done {
+  background: var(--line2);
+}
+
+.intent-dot.archived {
+  border: 1.5px solid var(--line2);
+  background: transparent;
+}
+
+/* ---- Search palette ------------------------------------------------------------ */
+
+.palette {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: start center;
+  padding-top: 12vh;
+  background: rgba(26, 32, 44, 0.26);
+}
+
+.palette-box {
+  width: 590px;
+  max-width: calc(100vw - 32px);
+  max-height: min(650px, 76vh);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 20px 60px rgba(26, 32, 44, 0.25);
+}
+
+.palette-field {
+  height: 52px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted-text);
+}
+
+/* The field is the dialog's one focus; its underline shows it has it. */
+.palette-field:focus-within {
+  box-shadow: inset 0 -2px 0 var(--accent);
+}
+
+.palette-field input {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  color: var(--ink);
+  background: transparent;
+  font-size: 15px;
+  outline: none;
+}
+
+.palette-results {
+  min-height: 120px;
+  overflow: auto;
+  padding: 5px 0 10px;
+}
+
+.palette-group h2 {
+  margin: 0;
+  padding: 9px 14px 4px;
+  color: var(--muted-text);
+  font-size: 10px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.palette-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.palette-option.on {
+  background: var(--panel);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.palette-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.palette-meta {
+  max-width: 46%;
+  margin-left: auto;
+  overflow: hidden;
+  color: var(--muted-text);
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.palette-empty {
+  margin: 0;
+  padding: 28px;
+  color: var(--muted-text);
+  text-align: center;
+}
+
+.palette-box footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 7px 14px;
+  border-top: 1px solid var(--line);
+  color: var(--muted-text);
+  background: var(--panel);
+  font-size: 10.5px;
+}
+
+.palette-box footer b {
+  margin-left: auto;
+  font-weight: 500;
+}
+
+/* ---- Narrow windows ---------------------------------------------------------- */
+
+@media (max-width: 1080px) {
+  .header-state {
+    max-width: 170px;
+  }
+
+  .header-tools .link {
+    display: none;
+  }
+}
+
+/* At 820px and below the sentence moves under the breadcrumb. */
+@media (max-width: 820px) {
+  .header {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "context tools"
+      "state tools";
+    row-gap: 1px;
+    padding-block: 6px;
+  }
+
+  .header-state {
+    max-width: none;
+    text-align: left;
+  }
+
+  .header-tools {
+    padding-left: 7px;
+  }
+
+  .inbox-page {
+    padding-inline: 24px;
+  }
+
+  .palette-box footer b {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inbox-row,
+  .inbox-go {
+    transition: none;
+  }
+}

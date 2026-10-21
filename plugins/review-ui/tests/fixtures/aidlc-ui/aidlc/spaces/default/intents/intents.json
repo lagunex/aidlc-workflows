@@ -1,0 +1,30 @@
+[
+  {
+    "uuid": "01a13b73-dd20-76d9-bcea-78506b3bb53a",
+    "slug": "aidlc-viz-server",
+    "dirName": "261014-aidlc-viz-server",
+    "scope": "poc",
+    "status": "complete"
+  },
+  {
+    "uuid": "01a1443e-5d80-757b-b2c3-d74804f4e6cb",
+    "slug": "csv-export",
+    "dirName": "261016-csv-export",
+    "scope": "poc",
+    "status": "in-flight"
+  },
+  {
+    "uuid": "01a14469-54e1-7f43-94c1-879732073254",
+    "slug": "symlink-intent-discovery",
+    "dirName": "261016-symlink-intent-discovery",
+    "scope": "bugfix",
+    "status": "complete"
+  },
+  {
+    "uuid": "01a144f0-f3bf-708e-b7fa-b69137b531f0",
+    "slug": "viz-graph-view",
+    "dirName": "261016-viz-graph-view",
+    "scope": "poc",
+    "status": "complete"
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "name": "review-ui",
+  "version": "0.1.0",
+  "description": "Read-only view of your AI-DLC work in the browser: intents, stages, documents and decisions. Run: bun <harness-dir>/tools/review-ui.ts serve",
+  "author": { "name": "AWS AIDLC" },
+  "dependencies": ["core"],
+  "aidlc": {
+    "contributes": {
+      "tools": "tools/"
+    }
+  }
+}

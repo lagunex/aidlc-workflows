@@ -1,0 +1,378 @@
+/* Review UI base: tokens, the page, the shell grid and the controls every
+   view shares. Each view's own styles are in shell.css, workflow.css,
+   document.css, questions.css and panels.css. Light theme only.
+
+   Text colours, by the WCAG 2 contrast ratio (4.5:1 is the floor for text):
+     --accent-text #1f66d1  5.41:1 on #fff, 5.13 on --panel, 4.89 on --soft,
+                            4.81 on --line; white text on it is 5.41:1
+     --green-text  #137a39  5.43:1 on #fff, 5.14 on --panel, 5.09 on --green-soft
+     --muted-text  #5f6b7d  5.40:1 on #fff, 5.12 on --panel, 4.89 on --soft,
+                            4.81 on --line
+     --amber-text  #9a5b00  5.10:1 on --amber-chip
+     --rose-text   #9f1239  7.26:1 on --rose-soft
+   The plain --accent (3.81:1 on #fff), --green (3.30:1) and --muted (3.15:1)
+   are for fills, borders, focus rings and icons, which need 3:1, and --faint
+   only for decoration that carries no meaning of its own. */
+:root {
+  --ink: #1a202c;
+  --muted: #8792a2;
+  --muted-text: #5f6b7d;
+  --faint: #b6bfcc;
+  --line: #eef2f7;
+  --line2: #dfe5ed;
+  --panel: #f7f9fc;
+  --accent: #2d7ff9;
+  --accent-text: #1f66d1;
+  --soft: #edf4ff;
+  --amber: #f59e0b;
+  --amber-soft: rgba(245, 158, 11, 0.15);
+  --amber-deep: #d97706;
+  --amber-chip: #fff7e8;
+  --amber-text: #9a5b00;
+  --violet: #7c3aed;
+  --violet-soft: #f4efff;
+  --rose: #e11d48;
+  --rose-soft: #fff0f3;
+  --rose-text: #9f1239;
+  --green: #16a34a;
+  --green-soft: #eefbf2;
+  --green-text: #137a39;
+  --shadow-menu: 0 14px 40px rgba(26, 32, 44, 0.17);
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --rail-w: 56px;
+  --panel-w: 300px;
+  --slot-w: 300px;
+  --header-h: 52px;
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  overflow: hidden;
+  color: var(--ink);
+  background: #fff;
+  font: 13px/1.5 var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input {
+  color: inherit;
+  font: inherit;
+}
+
+button {
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: inherit;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: default;
+}
+
+a {
+  color: var(--accent-text);
+}
+
+code {
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--panel);
+  font: 12px var(--mono);
+}
+
+/* Every region sets its own display; the hidden attribute must still win, or
+   a hidden overlay such as the palette would swallow every click. */
+[hidden] {
+  /* biome-ignore lint/complexity/noImportantStyles: hidden must beat every region's own display rule */
+  display: none !important;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Fluent icons draw with filled paths in currentColor. */
+svg.fi {
+  display: inline-block;
+  flex: none;
+  vertical-align: middle;
+}
+
+/* ---- Shell: rail | workflow panel | work (header / notice / body) ---------- */
+
+/* The shell never scrolls; every column scrolls inside itself, so a pane's
+   scrollIntoView never drags the header away. */
+.app {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template-columns: var(--rail-w) var(--panel-w) minmax(0, 1fr);
+  overflow: clip;
+  transition: grid-template-columns 0.18s ease;
+}
+
+.app > * {
+  min-height: 0;
+}
+
+/* The panel keeps its track and shrinks it to zero, so it slides. */
+.app.panel-hidden {
+  grid-template-columns: var(--rail-w) 0 minmax(0, 1fr);
+}
+
+/* Header, an optional notice, then the body takes the rest. The rows are
+   placed explicitly so a shown notice gets its own row. */
+.work {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+}
+
+.body {
+  position: relative;
+  grid-row: 3;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--slot-w);
+}
+
+.body.slot-hidden {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.main {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.main > * {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+
+.slot {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--line);
+  background: var(--panel);
+}
+
+/* ---- Shared controls --------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid var(--line2);
+  border-radius: 7px;
+  background: #fff;
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  background: var(--panel);
+}
+
+.btn.primary {
+  border-color: var(--accent-text);
+  color: #fff;
+  background: var(--accent-text);
+}
+
+.btn.primary:hover {
+  background: var(--accent-text);
+  filter: brightness(0.94);
+}
+
+.link {
+  padding: 0 6px;
+  color: var(--ink);
+  font-size: 12.5px;
+  white-space: nowrap;
+}
+
+.link:hover {
+  color: var(--accent-text);
+}
+
+.link-inline {
+  color: var(--accent-text);
+  text-decoration: underline;
+  text-decoration-color: rgba(31, 102, 209, 0.35);
+  text-underline-offset: 2px;
+}
+
+.link-inline:hover {
+  text-decoration-color: currentColor;
+}
+
+kbd {
+  padding: 0 5px;
+  border: 1px solid var(--line2);
+  border-radius: 4px;
+  color: var(--muted-text);
+  background: var(--panel);
+  font: 10.5px var(--mono);
+}
+
+.group-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 2px;
+  color: var(--muted-text);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.group-toggle:hover {
+  color: var(--ink);
+}
+
+/* A centred title and one line: loading, empty and failed views. */
+.placeholder {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 5px;
+  min-height: 220px;
+  padding: 40px 24px;
+  color: var(--muted-text);
+  text-align: center;
+}
+
+.placeholder b {
+  color: var(--ink);
+  font-size: 15px;
+}
+
+.placeholder span {
+  max-width: 420px;
+  line-height: 1.55;
+}
+
+.empty-state {
+  display: grid;
+  place-items: center;
+}
+
+.notice {
+  grid-row: 2;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 8px 18px 0;
+  padding: 8px 12px;
+  border: 1px solid var(--line2);
+  border-radius: 7px;
+  background: var(--panel);
+  font-size: 12.5px;
+}
+
+.notice-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.notice-close {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  margin: -1px -4px -1px 0;
+  border-radius: 5px;
+}
+
+.notice-close:hover {
+  background: rgba(26, 32, 44, 0.06);
+}
+
+.notice.error {
+  border-color: #f5c2cf;
+  color: var(--rose-text);
+  background: var(--rose-soft);
+}
+
+.notice.info {
+  border-color: #cfe0ff;
+  background: var(--soft);
+}
+
+.paused-overlay {
+  position: fixed;
+  bottom: 14px;
+  left: 50%;
+  z-index: 50;
+  max-width: calc(100vw - 32px);
+  padding: 9px 14px;
+  border-radius: 8px;
+  color: #fff;
+  background: var(--ink);
+  box-shadow: 0 8px 24px rgba(26, 32, 44, 0.2);
+  font-size: 12.5px;
+  transform: translateX(-50%);
+}
+
+/* ---- Breakpoints ------------------------------------------------------------- */
+
+@media (max-width: 1180px) {
+  :root {
+    --panel-w: 260px;
+    --slot-w: 280px;
+  }
+}
+
+/* Below 1080px the right-hand panel opens over the document instead of
+   beside it (app.js closes it when the window narrows past this width). */
+@media (max-width: 1079px) {
+  .body:not(.slot-hidden) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .slot {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 15;
+    width: min(var(--slot-w), 100%);
+    box-shadow: -12px 0 32px rgba(26, 32, 44, 0.12);
+  }
+}
+
+/* Each stylesheet turns its own transitions off under prefers-reduced-motion;
+   scrolling is told the same by the scripts (reducedMotion in store.js). */
+@media (prefers-reduced-motion: reduce) {
+  .app {
+    transition: none;
+  }
+}

@@ -328,6 +328,8 @@ through to production.
 
 If the state file is corrupted, you can reconstruct it from the audit trail by reviewing `STAGE_STARTED` and `STAGE_COMPLETED` events. See [Troubleshooting](15-troubleshooting.md) for repair instructions.
 
+To browse an intent's state, decisions and artifacts in a browser, run the read-only [Review UI plugin](../../plugins/review-ui/README.md), which reads these same files and changes none of them.
+
 ---
 
 ## Next Steps

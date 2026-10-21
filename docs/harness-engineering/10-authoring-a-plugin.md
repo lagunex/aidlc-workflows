@@ -90,6 +90,11 @@ shown above; VALIDATE, BUILD, and TEST reject alternatives such as
 `tools` lands CLI scripts in the harness `tools/` dir so a plugin can ship a
 **runnable sensor** (its manifest in `sensors/` + its script in `tools/`) and an
 optional doctor check.
+`tools/` can also hold a command the person runs, with the modules and data
+files it reads kept beside it rather than in `tools/data/`, AI-DLC's own data
+folder, as the [Review UI plugin](../../plugins/review-ui/README.md) does; only
+the content directories ship, so a `README.md` or `tests/` at the plugin root
+never reaches an install.
 Keep tests and fixtures in the plugin's top-level `tests/` directory, never
 inside `tools/`. Compose drops files under `tools/tests/`, `tools/__tests__/`,
 or `tools/fixtures/`, plus co-located `*.test.ts` and `*.spec.ts` files, and

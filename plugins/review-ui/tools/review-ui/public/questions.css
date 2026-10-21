@@ -1,0 +1,279 @@
+/* A questions file read as one document, in the answered-round layout: the
+   question, its reasoning, then the answer card with the chosen option
+   tinted and locked. */
+
+.questions-view {
+  background: #fff;
+}
+
+.questions-placeholder {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 5px;
+  min-height: 220px;
+  margin: 0;
+  padding: 40px;
+  color: var(--muted-text);
+  text-align: center;
+}
+
+.questions-placeholder b {
+  color: var(--ink);
+  font-size: 15px;
+}
+
+.qcol {
+  width: min(100%, 820px);
+  margin: 0 auto;
+  padding: 28px 40px 60px;
+}
+
+.qintro {
+  margin-bottom: 26px;
+}
+
+.qintro h1 {
+  margin: 0 0 6px;
+  font-size: 24px;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.qintro p {
+  margin: 0;
+  color: var(--muted-text);
+  font-size: 13px;
+}
+
+.qblock {
+  margin: 0 0 34px;
+  padding: 0 0 30px;
+  border-bottom: 1px solid var(--line2);
+}
+
+.qblock:last-of-type {
+  border-bottom: 0;
+}
+
+.qnum {
+  margin: 0 0 6px;
+  color: var(--muted-text);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.qblock.open .qnum {
+  color: var(--accent-text);
+}
+
+.qrole {
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.qblock > h2 {
+  margin: 0 0 14px;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+}
+
+.explain {
+  margin-bottom: 14px;
+  padding: 16px 18px 4px;
+  overflow: hidden;
+  border: 1px solid var(--line2);
+  border-radius: 10px;
+  background: #fbfcfe;
+}
+
+.explain p {
+  margin: 0 0 12px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  white-space: pre-line;
+}
+
+.qcard {
+  padding: 12px 14px;
+  border: 1px solid var(--line2);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.qcard h3 {
+  margin: 0 0 10px;
+  font-size: 14px;
+}
+
+.ans-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 6px;
+  margin: 0 0 10px;
+  color: var(--muted-text);
+  font-size: 12px;
+}
+
+.ans-line b {
+  color: var(--green-text);
+  font-weight: 600;
+}
+
+.ans-line.open b {
+  color: var(--accent-text);
+}
+
+.options {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 6px 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.option {
+  min-width: 0;
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  font-size: 13.5px;
+  line-height: 1.3;
+}
+
+/* The radio mark, drawn: these answers are read here, never changed. */
+.option-mark {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  border: 1.5px solid var(--line2);
+  border-radius: 50%;
+  background: #fff;
+}
+
+.option-letter {
+  flex: none;
+  color: var(--muted-text);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.option-text {
+  min-width: 0;
+}
+
+.rectag {
+  flex: none;
+  margin-left: auto;
+  padding: 1px 7px;
+  border-radius: 99px;
+  color: var(--green-text);
+  background: #fff;
+  font-size: 10.5px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* Answered: the other options step back (in the muted text colour rather
+   than by opacity, which would take them under 4.5:1) and the chosen one is
+   tinted. */
+.answered .qcard {
+  border-color: var(--line);
+}
+
+.answered .option {
+  color: var(--muted-text);
+}
+
+.answered .option .option-mark {
+  border-color: var(--line);
+}
+
+.answered .option.chosen {
+  border-color: #bfe3c9;
+  color: var(--ink);
+  background: var(--green-soft);
+}
+
+.answered .option.chosen .option-mark {
+  border-color: var(--green);
+  background: radial-gradient(circle, var(--green) 0 3px, #fff 3.5px);
+}
+
+.ans-text {
+  margin: 10px 0 0;
+  padding: 8px 12px;
+  border-left: 3px solid var(--line2);
+  border-radius: 0 6px 6px 0;
+  color: var(--ink);
+  background: var(--panel);
+  font-size: 13px;
+  white-space: pre-line;
+}
+
+.qsections {
+  display: grid;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.qsection {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+  padding: 10px 14px;
+  border: 1px solid var(--line2);
+  border-radius: 10px;
+  color: var(--muted-text);
+  background: var(--panel);
+  font-size: 12.5px;
+}
+
+.qsection b {
+  color: var(--ink);
+}
+
+.qsection.answered span {
+  color: var(--green-text);
+}
+
+.qsection.open span {
+  color: var(--accent-text);
+  font-weight: 600;
+}
+
+/* An archived or completed intent's open round waits on nobody: no accent. */
+.qcol.ended .qblock.open .qnum,
+.qcol.ended .ans-line.open b,
+.qcol.ended .qsection.open span {
+  color: var(--muted-text);
+}
+
+.qsection .ans-text {
+  flex-basis: 100%;
+  margin-top: 4px;
+  background: #fff;
+}
+
+@media (max-width: 760px) {
+  .qcol {
+    padding: 22px 20px 48px;
+  }
+
+  .options {
+    grid-template-columns: 1fr;
+  }
+
+  .explain {
+    padding: 14px 14px 2px;
+  }
+}

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>AI-DLC Workflows · read-only</title>
+  <link rel="stylesheet" href="/assets/app.css">
+  <link rel="stylesheet" href="/assets/shell.css">
+  <link rel="stylesheet" href="/assets/workflow.css">
+  <link rel="stylesheet" href="/assets/document.css">
+  <link rel="stylesheet" href="/assets/questions.css">
+  <link rel="stylesheet" href="/assets/panels.css">
+  <script type="module" src="/assets/app.js"></script>
+</head>
+<body>
+  <div id="app" class="app">
+    <nav id="rail" class="rail" aria-label="App"></nav>
+    <aside id="panel" class="panel" aria-label="Workflow"></aside>
+    <div id="work" class="work">
+      <header id="header" class="header"></header>
+      <div id="notice" class="notice" role="status" hidden></div>
+      <div id="body" class="body slot-hidden">
+        <main id="main" class="main">
+          <article id="viewer" class="viewer" aria-label="Document" hidden></article>
+          <section id="questions-view" class="questions-view" aria-label="Questions" hidden></section>
+          <section id="overview" class="overview" aria-label="Stage and files" hidden></section>
+          <section id="inbox" class="inbox" aria-label="Inbox" hidden></section>
+          <section id="empty" class="empty-state">
+            <div class="placeholder">
+              <b>Reading your workspace…</b>
+              <span>The Review UI only reads; every action happens where you run AI-DLC.</span>
+            </div>
+          </section>
+        </main>
+        <aside id="slot" class="slot" aria-label="Side panel" hidden></aside>
+      </div>
+    </div>
+  </div>
+  <div id="search" class="palette" hidden></div>
+  <div id="paused-overlay" class="paused-overlay" role="status" hidden></div>
+  <svg id="svg-namespace" aria-hidden="true" focusable="false" hidden></svg>
+</body>
+</html>
